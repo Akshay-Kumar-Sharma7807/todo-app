@@ -1,8 +1,8 @@
 .App {
   display: flex;
-  justify-content: flex-start;
-  padding: 1rem;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   --background: rgb(46, 46, 255);
   --accent-color: rgb(248, 161, 0);
@@ -11,9 +11,42 @@
   --shadow-color: black;
   color: var(--text-color);
   background: var(--background);
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem;
+  align-items: center;
   flex-direction: column;
+  flex: 1 1;
   gap: 2rem;
+  width: clamp(100px, 100vw, 600px);
   /* font-size: 4rem; */
+}
+
+button {
+  border: 4px solid black;
+  box-shadow: 2px 2px black;
+  color: black;
+  /* Give this color a name */
+  background: rgb(255, 118, 136); 
+  padding: 5px 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+button:active {
+  box-shadow: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(244, 244, 244, 0.699);
+  width: 100vw;
+  padding: 1rem;
+  gap: 1rem;
 }
 
 .form {
@@ -24,7 +57,7 @@
   /* flex: 0 1; */
 }
 
-button {
+.add-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +74,7 @@ button {
   align-self: stretch;
 }
 
-button:active {
+.add-button:active {
   box-shadow: none;
 }
 /* 
@@ -57,9 +90,10 @@ input[type="text"] {
   box-shadow: 4px 4px black;
   outline: none;
   flex-grow: 1;
-  max-width: 30rem;
-  min-width: 5rem;
-  width: 100%;
+  max-width: 450px;
+  /* min-width: 5rem; */
+  /* width: 80vw; */
+  /* width: clamp(5rem, 100%, 60rem); */
 }
 /* input[type="text"]:focus {
   box-shadow: none;
