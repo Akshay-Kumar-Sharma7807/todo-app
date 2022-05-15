@@ -8,15 +8,16 @@ export default function Form({ todos, setTodos }) {
     e.preventDefault();
     setTodos((p) => {
       console.log(p)
-      return [...p, text]
+      return [...p, { completed: false, text }]
     })
+    setText("");
   }
 
   return (
     <form className="form">
-      <input type="text" onChange={(e) => setText(e.target.value)} required />
+      <input type="text" value={text} onChange={(e) => setText(e.target.value)} required />
       <button onClick={handleClick} type="submit">
-        <i class="bi bi-check-lg"></i>
+        <i className="bi bi-check-lg"></i>
       </button>
     </form>
   )
