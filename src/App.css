@@ -1,3 +1,4 @@
+/* App Styles */
 .App {
   display: flex;
   justify-content: center;
@@ -12,7 +13,7 @@
   color: var(--text-color);
   background: var(--background);
 }
-
+/* =================== Universal Styles =============================== */
 .container {
   display: flex;
   justify-content: flex-start;
@@ -23,6 +24,12 @@
   gap: 2rem;
   width: clamp(100px, 100vw, 600px);
   /* font-size: 4rem; */
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  
 }
 
 button {
@@ -39,13 +46,14 @@ button:active {
   box-shadow: none;
 }
 
+/*  ======================== NavBar Styles ================================== */
 .navbar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background: rgba(244, 244, 244, 0.699);
   width: 100vw;
-  padding: 1rem;
+  padding: 0.4rem 1rem;
   gap: 1rem;
 }
 

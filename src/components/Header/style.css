@@ -1,0 +1,79 @@
+.sidebar {
+  /* width: 256px; */
+  /* height: 100vh; */
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  /* padding: 0.4rem; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background: yellow;
+  border-right: 4px solid black;
+  width: 0;
+  box-sizing: border-box;
+  /* display: none; */
+  transition: 0.5s ease-in-out;
+  /* background: linear-gradient(45deg,rgb(255, 115, 0), red); */
+  background: orangered;
+  color: white;
+}
+
+.sidebar.open {
+  /* display: flex !important; */
+  width: clamp(256px, 40vw, 400px);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+}
+.overlay.open {
+  display: block;
+}
+
+.sidebar h2 {
+  padding: 0.4rem 1rem;
+  font-size: 2rem;
+  /* text-align: center; */
+  width: clamp(256px, 40vw, 400px);
+}
+
+.sidebar-list {
+  list-style-type: none;
+  width: 100%;
+}
+
+.sidebar-list li {
+  padding: 0.4rem 0.8rem;
+  font-size: 1.4rem;
+  width: 100%;
+  /* text-align: center; */
+  display: flex;
+  gap: 1rem;
+}
+.sidebar-list li:hover {
+  /* color: white; */
+  /* border: 2px solid black; */
+  background: linear-gradient(45deg,rgb(255, 115, 0), rgb(255, 66, 66), rgb(255, 115, 0));
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.divider {
+  width: 256px;
+  height: 2px;
+  background: black;
+  margin: 0.8rem auto;
+}
