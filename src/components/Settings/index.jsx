@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 export default function Settigs() {
-  const [retro, setRetro] = useState(JSON.parse(localStorage.getItem("retro")) || true);
+  const [retro, setRetro] = useState(JSON.parse(localStorage.getItem("retro")) || false);
 
   const toggleTheme = () => {
     setRetro((p) => !p);

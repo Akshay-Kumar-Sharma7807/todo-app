@@ -25,6 +25,9 @@ export default function Header() {
         <button onClick={toggleSidebar} className="closebtn"><i class="bi bi-x"></i></button>
         <h2>Todo App</h2>
         <ul className="sidebar-list">
+          {/* <Link to="/my-day">
+            <li><i className="bi bi-sun"></i><span>My Day</span></li>
+          </Link> */}
           <Link to="/">
             <li><i className="bi bi-house-fill"></i><span>Home</span></li>
           </Link>

@@ -13,18 +13,19 @@
   flex-direction: column;
   background: yellow;
   border-right: var(--border) solid black;
-  width: 0;
   box-sizing: border-box;
   /* display: none; */
-  transition: 0.5s ease-in-out;
+  transition: 0.4s ease-in-out;
   /* background: linear-gradient(45deg,rgb(255, 115, 0), red); */
   background: orangered;
   color: white;
+  width: clamp(256px, 40vw, 350px);
+  transform: translateX(-100%);
 }
 
 .sidebar.open {
   /* display: flex !important; */
-  width: clamp(256px, 40vw, 350px);
+  transform: translateX(0%);
 }
 
 .overlay {
