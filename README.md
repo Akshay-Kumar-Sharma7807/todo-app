@@ -13,7 +13,7 @@ This will open the app on ```localhost:3000```
 ## Features
 
 - Manage your daily tasks
-- Retro style 🔥
+- Toggle between Retro Theme and Original Theme 🔥
 - Installable PWA 
 - Works Offline 📴
 - Blazingly fast ⚡
