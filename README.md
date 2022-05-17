@@ -1,7 +1,7 @@
 # Todo App
 Organize your daily workflow with a retro style Todo App
 
-Todo App url: [aks-todo.netlify.app](aks-todo.netlify.app) 
+Todo App url: [aks-todo.web.app](aks-todo.web.app) 
 
 ## Installation
 ```
@@ -26,3 +26,5 @@ This will open the app on ```localhost:3000```
 - Custom CSS for retro style
 - Workbox for service worker
 
+## Live Demo
+[aks-todo.web.app](http://aks-todo.web.app)
