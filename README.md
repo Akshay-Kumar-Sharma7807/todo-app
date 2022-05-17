@@ -22,7 +22,7 @@ This will open the app on ```localhost:3000```
 ## Technologies
 
 - React for Frontend
-- Netlify for deploys
+- Firebase hosting and authentication
 - Custom CSS for retro style
 - Workbox for service worker
 
