@@ -47,6 +47,10 @@
 }
 
 .sidebar-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
   list-style-type: none;
   width: 100%;
 }
@@ -58,6 +62,7 @@
   /* text-align: center; */
   display: flex;
   gap: 1rem;
+  cursor: pointer;
 }
 .sidebar-list li:hover {
   /* color: white; */

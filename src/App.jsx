@@ -4,6 +4,7 @@ import Form from "./components/Form";
 import List from "./components/List";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import Settings from "./components/Settings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
               />
             </div>
           } />
-          <Route path="/hello" element={<div>Hello</div>} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </div>

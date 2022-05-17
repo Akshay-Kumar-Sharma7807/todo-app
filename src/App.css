@@ -153,7 +153,7 @@ input[type="text"] {
   height: 2rem;
 }
 /* sidebar */
-.sidebar{
+/* .sidebar{
   position: fixed;
   transform: translate(-150rem);
   width: 25rem;
@@ -180,4 +180,4 @@ input[type="text"] {
   position:absolute;
   right: .6rem;
   top: 2rem;
-}
+} */

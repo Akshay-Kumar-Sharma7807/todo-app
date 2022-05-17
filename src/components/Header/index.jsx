@@ -26,16 +26,18 @@ export default function Header() {
         <h2>Todo App</h2>
         <ul className="sidebar-list">
           <Link to="/">
-            <li><i class="bi bi-house-fill"></i><span>Home</span></li>
+            <li><i className="bi bi-house-fill"></i><span>Home</span></li>
           </Link>
 
           <li><i class="bi bi-info-square-fill"></i><span>About</span></li>
           <div className="div divider"></div>
-          <li><i class="bi bi-gear-fill"></i><span>Settings</span></li>
+          <Link to="/settings">
+            <li><i className="bi bi-gear-fill"></i><span>Settings</span></li>
+          </Link>
           {user ?
             <li onClick={() => { signOut(auth) }}><i class="bi bi-box-arrow-right"></i><span>Logout</span></li> :
             <Link to="/login">
-              <li><i class="bi bi-person-circle"></i><span>Login</span></li>
+              <li><i className="bi bi-person-circle"></i><span>Login</span></li>
             </Link>
           }
         </ul>
