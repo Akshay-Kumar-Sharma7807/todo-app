@@ -17,7 +17,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className={localStorage.getItem("retro") ? "App" : "App modern"}>
         <Header />
         <Routes>
           <Route path="" element={

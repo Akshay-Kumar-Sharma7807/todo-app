@@ -18,7 +18,7 @@ export default function Header() {
     <>
       <nav className="navbar">
         <button onClick={toggleSidebar}><i className="bi bi-three-dots-vertical"></i></button>
-        <h2>Todo App</h2>
+        <h2 style={{ color: "white" }}>Todo App</h2>
       </nav>
       <div className="overlay" onClick={toggleSidebar}></div>
       <div className="sidebar">

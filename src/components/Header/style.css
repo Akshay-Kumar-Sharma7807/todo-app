@@ -12,7 +12,7 @@
   align-items: center;
   flex-direction: column;
   background: yellow;
-  border-right: 4px solid black;
+  border-right: var(--border) solid black;
   width: 0;
   box-sizing: border-box;
   /* display: none; */
@@ -24,7 +24,7 @@
 
 .sidebar.open {
   /* display: flex !important; */
-  width: clamp(256px, 40vw, 400px);
+  width: clamp(256px, 40vw, 350px);
 }
 
 .overlay {
@@ -43,7 +43,7 @@
   padding: 0.4rem 1rem;
   font-size: 2rem;
   /* text-align: center; */
-  width: clamp(256px, 40vw, 400px);
+  width: clamp(256px, 40vw, 350px);
 }
 
 .sidebar-list {
@@ -63,6 +63,7 @@
   display: flex;
   gap: 1rem;
   cursor: pointer;
+  color: white;
 }
 .sidebar-list li:hover {
   /* color: white; */
@@ -79,6 +80,6 @@
 .divider {
   width: 256px;
   height: 2px;
-  background: black;
+  background: var(--text-color);
   margin: 0.8rem auto;
 }
