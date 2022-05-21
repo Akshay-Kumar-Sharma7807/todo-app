@@ -19,12 +19,14 @@ export default function TodoForm({ todos, setTodos }) {
       {/* <Input type="text"  required /> */}
       <Group position="center">
         <TextInput
-          placeholder="Your name"
+          placeholder="Your Task"
           // label="Full name"
           required
           value={text}
           onChange={(e) => setText(e.target.value)}
           size="md"
+          fullWidth
+          sx={{ flex: 1 }}
         />
         <Button onClick={handleClick} type="submit" className='add-button' size="md">
           <i className="bi bi-check-lg"></i>

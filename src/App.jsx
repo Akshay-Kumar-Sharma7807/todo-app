@@ -21,22 +21,7 @@ function App() {
     <Router>
       <div className={localStorage.getItem("retro") ? "App" : "App modern"}>
         {/* <HeaderComponent /> */}
-        <Routes>
-          <Route path="" element={
-            <Layout />
-            // <div className="container">
-            //   <Form todos={todos} setTodos={setTodos} />
-            //   <List todos={todos} deleteTodo={(todoIndex) => {
-            //     const newTodos = todos.filter((_, index) => index !== todoIndex);
-            //     setTodos(newTodos);
-            //   }}
-            //     setTodos={setTodos}
-            //   />
-            // </div>
-          } />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+        <Layout />
       </div>
     </Router>
   )

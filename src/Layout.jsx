@@ -13,6 +13,9 @@ import {
 } from '@mantine/core';
 import TodoForm from './components/TodoForm';
 import TodoNavbar from './components/TodoNavbar';
+import { Routes, Route } from 'react-router-dom';
+import Settings from "./components/Settings"
+import Login from "./components/Login";
 
 
 export default function Layout() {
@@ -64,7 +67,22 @@ export default function Layout() {
         </Header>
       }
     >
-      <TodoForm />
+      <Routes>
+        <Route path="" element={
+          <TodoForm />
+          // <div className="container">
+          //   <Form todos={todos} setTodos={setTodos} />
+          //   <List todos={todos} deleteTodo={(todoIndex) => {
+          //     const newTodos = todos.filter((_, index) => index !== todoIndex);
+          //     setTodos(newTodos);
+          //   }}
+          //     setTodos={setTodos}
+          //   />
+          // </div>
+        } />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </AppShell>
   );
 }
