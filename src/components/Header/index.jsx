@@ -1,11 +1,12 @@
 import React from 'react'
-import "./style.css"
+// import "./style.css"
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from "firebase/auth";
+import { Header } from '@mantine/core';
 
-export default function Header() {
+export default function HeaderComponent() {
   const [user] = useAuthState(auth);
 
   const toggleSidebar = () => {
@@ -16,6 +17,9 @@ export default function Header() {
 
   return (
     <>
+      <Header height={60} p="xs">
+        Hello
+      </Header>
       <nav className="navbar">
         <button onClick={toggleSidebar}><i className="bi bi-three-dots-vertical"></i></button>
         <h2 style={{ color: "white" }}>Todo App</h2>

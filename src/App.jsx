@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import './App.css';
-import Form from "./components/Form";
+// import './App.css';
+import Form from "./components/TodoForm";
 import List from "./components/List";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Login from "./components/Login";
 import Settings from "./components/Settings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HeaderComponent from './components/Header';
+import Layout from "./Layout"
 
 function App() {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || [])
@@ -18,18 +20,19 @@ function App() {
   return (
     <Router>
       <div className={localStorage.getItem("retro") ? "App" : "App modern"}>
-        <Header />
+        {/* <HeaderComponent /> */}
         <Routes>
           <Route path="" element={
-            <div className="container">
-              <Form todos={todos} setTodos={setTodos} />
-              <List todos={todos} deleteTodo={(todoIndex) => {
-                const newTodos = todos.filter((_, index) => index !== todoIndex);
-                setTodos(newTodos);
-              }}
-                setTodos={setTodos}
-              />
-            </div>
+            <Layout />
+            // <div className="container">
+            //   <Form todos={todos} setTodos={setTodos} />
+            //   <List todos={todos} deleteTodo={(todoIndex) => {
+            //     const newTodos = todos.filter((_, index) => index !== todoIndex);
+            //     setTodos(newTodos);
+            //   }}
+            //     setTodos={setTodos}
+            //   />
+            // </div>
           } />
           <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />

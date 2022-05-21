@@ -8,6 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.5",
+    "@mantine/dates": "^4.2.5",
+    "@mantine/form": "^4.2.5",
+    "@mantine/hooks": "^4.2.5",
+    "@mantine/modals": "^4.2.5",
+    "@mantine/notifications": "^4.2.5",
+    "dayjs": "^1.11.2",
     "firebase": "^9.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
