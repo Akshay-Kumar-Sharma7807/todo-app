@@ -11,8 +11,8 @@ import {
   useMantineTheme,
   Title,
 } from '@mantine/core';
-import TodoForm from './components/TodoForm';
-import TodoNavbar from './components/TodoNavbar';
+import Todos from './components/Todos/';
+import Navigation from './components/Navigation/Navigation';
 import { Routes, Route } from 'react-router-dom';
 import Settings from "./components/Settings"
 import Login from "./components/Login";
@@ -33,9 +33,9 @@ export default function Layout() {
       asideOffsetBreakpoint="sm"
       fixed
       navbar={
-        <TodoNavbar opened={opened}>
+        <Navigation opened={opened}>
           <Text>Application navbar</Text>
-        </TodoNavbar>
+        </Navigation>
       }
       // aside={
       //   <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
@@ -52,7 +52,7 @@ export default function Layout() {
       header={
         <Header height={60} p="sm">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-            <MediaQuery largerThan="xs" styles={{ display: 'none' }}>
+            <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
               <Burger
                 opened={opened}
                 onClick={() => setOpened((o) => !o)}
@@ -69,7 +69,7 @@ export default function Layout() {
     >
       <Routes>
         <Route path="" element={
-          <TodoForm />
+          <Todos />
           // <div className="container">
           //   <Form todos={todos} setTodos={setTodos} />
           //   <List todos={todos} deleteTodo={(todoIndex) => {

@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-// import './App.css';
-import Form from "./components/TodoForm";
-import List from "./components/List";
-// import Header from "./components/Header";
-import Login from "./components/Login";
-import Settings from "./components/Settings";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HeaderComponent from './components/Header';
+import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout"
 
 function App() {
@@ -19,8 +12,7 @@ function App() {
 
   return (
     <Router>
-      <div className={localStorage.getItem("retro") ? "App" : "App modern"}>
-        {/* <HeaderComponent /> */}
+      <div className={"App"}>
         <Layout />
       </div>
     </Router>

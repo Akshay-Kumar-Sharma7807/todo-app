@@ -3,7 +3,7 @@ import React from 'react';
 import { ThemeIcon, UnstyledButton, Group, Text, Box, Divider } from '@mantine/core';
 import { NavLink } from "react-router-dom";
 
-function MainLink({ icon, color, label, link }) {
+export function MainLink({ icon, color, label, link }) {
   return (
     <UnstyledButton
       component={NavLink}
@@ -16,14 +16,12 @@ function MainLink({ icon, color, label, link }) {
         borderRadius: theme.radius.sm,
         color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
         textDecoration: 'none',
+        transition: "border 0.2s ease-in-out",
 
         '&:hover': {
           backgroundColor:
             theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-        '&.active': {
-          borderLeft: '4px solid ' + color,
-        },
+        }
       })}
     >
       <Group>
@@ -39,14 +37,17 @@ function MainLink({ icon, color, label, link }) {
 
 const data = [
   {
-    icon: <i className="bi bi-house" />, color: 'blue', label: 'Home', link: "/"
+    icon: <i className="bi bi-sun" />, color: 'blue', label: 'My Day', link: "/"
   },
-  { icon: <i className="bi bi-info" />, color: 'teal', label: 'Info', link: "/about" },
-  { icon: <i className="bi bi-gear" />, color: 'violet', label: 'Settings', link: "/settings" },
-  { icon: <i className="bi bi-share" />, color: 'grape', label: 'Share', link: "/share" },
+  { icon: <i className="bi bi-star" />, color: 'teal', label: 'Important', link: "/about" },
+  { icon: <i className="bi bi-calendar3" />, color: 'violet', label: 'Planned', link: "/settings" },
+  { icon: <i className="bi bi-infinity" />, color: 'violet', label: 'All', link: "/settings" },
+  { icon: <i className="bi bi-check-circle" />, color: 'violet', label: 'Completed', link: "/settings" },
+  { icon: <i className="bi bi-person" />, color: 'violet', label: 'Assigned to me', link: "/settings" },
+  { icon: <i className="bi bi-clipboard-check" />, color: 'violet', label: 'Tasks', link: "/settings" },
 ];
 
-export function MainLinks() {
+export function NavLinks() {
   const links = data.map((link) => <MainLink {...link} key={link.label} />);
   return (
     <div>

@@ -1,13 +1,32 @@
 import { Navbar, Text, Box, ThemeIcon, Group, UnstyledButton } from "@mantine/core";
-import { MainLinks } from "./MainLinks";
+import { NavLinks, MainLink } from "./NavLinks";
+import NavBtn from "./NavBtn";
 
 import React from 'react'
 
-export default function TodoNavbar({ opened }) {
+export default function Navigation({ opened }) {
+
+  const share = (e) => {
+    let shareData = {
+      title: "AKS TODO",
+      text: "Manage Tasks from anywhere",
+      url: "https://aks-todo.web.app"
+    }
+    try {
+      if (navigator.canShare(shareData)) {
+        navigator.share(shareData)
+      }
+    }
+    catch {
+      console.log("Share isn't supported")
+    }
+  }
+
   return (
-    <Navbar p="xs" hiddenBreakpoint="xs" hidden={!opened} width={{ xs: 300, lg: 300 }}>
+    <Navbar p="xs" hiddenBreakpoint="sm" hidden={!opened} width={{ xs: 300, lg: 300 }}>
       <Navbar.Section grow>
-        <MainLinks />
+        <NavLinks />
+        <NavBtn icon={<i className="bi bi-share"></i>} color="cyan" label="Share" onClick={share} />
         {/* <UnstyledButton
           sx={(theme) => ({
             display: 'block',
@@ -30,6 +49,7 @@ export default function TodoNavbar({ opened }) {
             <Text size="sm">Home</Text>
           </Group>
         </UnstyledButton> */}
+
       </Navbar.Section>
     </Navbar>
   )
