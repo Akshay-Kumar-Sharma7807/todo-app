@@ -5,7 +5,11 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
 function App() {
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || [])
+  const [todos, setTodos] = useLocalStorage({
+    key: 'todos',
+    defaultValue: [],
+    getInitialValueInEffect: true,
+  });
 
   useEffect(() => {
     // console.log("change in todos", todos);

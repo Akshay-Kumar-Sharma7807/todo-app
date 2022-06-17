@@ -1,9 +1,13 @@
 import { Container, Button, Table, Modal, Group, Checkbox, Text, Divider, ActionIcon, Switch } from '@mantine/core'
 import React, { useState } from 'react'
 import AddTodo from "./AddTodo"
+import { useLocalStorage } from '@mantine/hooks';
 
 export default function Todos() {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useLocalStorage({
+    key: 'todos',
+    defaultValue: [],
+  });
   const [todoModal, setTodoModal] = useState(false);
 
   const fields = todos.sort((a, b) => b.importance - a.importance).map((todo, index) => (
