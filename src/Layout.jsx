@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import Todos from './components/Todos/';
 import Navigation from './components/Navigation/Navigation';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Settings from "./components/Settings"
 import Login from "./components/Login";
 import Head from "./components/Head/";
@@ -57,6 +57,9 @@ export default function Layout() {
       }
     >
       <Routes>
+        <Route path="/" element={
+          <Navigate to="/tasks/my-day" />
+        } />
         <Route path="/tasks/my-day" element={
           <Todos />
         } />
