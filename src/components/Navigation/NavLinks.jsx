@@ -16,11 +16,14 @@ export function MainLink({ icon, color, label, link }) {
         borderRadius: theme.radius.sm,
         color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
         textDecoration: 'none',
-        transition: "border 0.2s ease-in-out",
+        transition: "font-weight 0.1s linear",
 
         '&:hover': {
           backgroundColor:
             theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+        },
+        '&.active': {
+          fontWeight: "bold",
         }
       })}
     >
@@ -37,14 +40,14 @@ export function MainLink({ icon, color, label, link }) {
 
 const data = [
   {
-    icon: <i className="bi bi-sun" />, color: 'blue', label: 'My Day', link: "/"
+    icon: <i className="bi bi-sun" />, color: 'blue', label: 'My Day', link: "/tasks/my-day"
   },
-  { icon: <i className="bi bi-star" />, color: 'teal', label: 'Important', link: "/about" },
-  { icon: <i className="bi bi-calendar3" />, color: 'violet', label: 'Planned', link: "/settings" },
-  { icon: <i className="bi bi-infinity" />, color: 'violet', label: 'All', link: "/settings" },
-  { icon: <i className="bi bi-check-circle" />, color: 'violet', label: 'Completed', link: "/settings" },
-  { icon: <i className="bi bi-person" />, color: 'violet', label: 'Assigned to me', link: "/settings" },
-  { icon: <i className="bi bi-clipboard-check" />, color: 'violet', label: 'Tasks', link: "/settings" },
+  { icon: <i className="bi bi-star" />, color: 'teal', label: 'Important', link: "/tasks/important" },
+  { icon: <i className="bi bi-calendar3" />, color: 'violet', label: 'Planned', link: "/tasks/planned" },
+  { icon: <i className="bi bi-infinity" />, color: 'orange', label: 'All', link: "/tasks/all" },
+  { icon: <i className="bi bi-check-circle" />, color: 'teal', label: 'Completed', link: "/tasks/completed" },
+  { icon: <i className="bi bi-person" />, color: 'grape', label: 'Assigned to me', link: "/tasks/assigned-to-me" },
+  { icon: <i className="bi bi-clipboard-check" />, color: 'yellow', label: 'Tasks', link: "/tasks/inbox" },
 ];
 
 export function NavLinks() {

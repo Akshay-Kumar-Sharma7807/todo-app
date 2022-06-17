@@ -10,6 +10,8 @@ import {
   Burger,
   useMantineTheme,
   Title,
+  Group,
+  ActionIcon,
 } from '@mantine/core';
 import Todos from './components/Todos/';
 import Navigation from './components/Navigation/Navigation';
@@ -63,23 +65,27 @@ export default function Layout() {
             </MediaQuery>
 
             <Title order={3}>Todo App</Title>
+            <Group ml="auto" m="md">
+              <ActionIcon><i className="bi bi-sun" /></ActionIcon>
+              <ActionIcon><i className="bi bi-gear" /></ActionIcon>
+              <ActionIcon><i className="bi bi-info-circle" /></ActionIcon>
+              <ActionIcon><i className="bi bi-person-circle" /></ActionIcon>
+            </Group>
           </div>
         </Header>
       }
     >
       <Routes>
-        <Route path="" element={
+        <Route path="/tasks/my-day" element={
           <Todos />
-          // <div className="container">
-          //   <Form todos={todos} setTodos={setTodos} />
-          //   <List todos={todos} deleteTodo={(todoIndex) => {
-          //     const newTodos = todos.filter((_, index) => index !== todoIndex);
-          //     setTodos(newTodos);
-          //   }}
-          //     setTodos={setTodos}
-          //   />
-          // </div>
         } />
+        <Route path="/tasks/important" element={<div>Important</div>} />
+        <Route path="/tasks/planned" element={<div>Planned</div>} />
+        <Route path="/tasks/all" element={<div>all</div>} />
+        <Route path="/tasks/completed" element={<div>Completed</div>} />
+        <Route path="/tasks/assigned-to-me" element={<div>Assigned To Me</div>} />
+        <Route path="/tasks/inbox" element={<div>Tasks</div>} />
+
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
       </Routes>

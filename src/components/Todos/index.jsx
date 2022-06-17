@@ -6,7 +6,7 @@ export default function Todos() {
   const [todos, setTodos] = useState([])
   const [todoModal, setTodoModal] = useState(false);
 
-  const fields = todos.map((todo, index) => (
+  const fields = todos.sort((a, b) => b.importance - a.importance).map((todo, index) => (
     <Group key={index} mt="xs" size="lg">
       <Checkbox onChange={(e) => setTodos((t) => {
         console.log(e.target.checked)
@@ -20,9 +20,15 @@ export default function Todos() {
       <ActionIcon
         color="red"
         variant="hover"
-        onClick={() => console.log("hello")}
+        onClick={() => setTodos((t) => {
+          console.log(todo.favourite, t[index].favourite)
+          t[index].favourite = !todo.favourite
+          return [...t]
+        })
+        }
       >
-        <i className="bi bi-star" size={16} />
+        <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
+        {todo.favourite}
       </ActionIcon>
     </Group>
   ));
@@ -34,6 +40,7 @@ export default function Todos() {
         opened={todoModal}
         onClose={() => setTodoModal(false)}
         title="Add New Task"
+        size="md"
       >
         <AddTodo close={() => setTodoModal(false)} setTodos={setTodos} />
       </Modal>

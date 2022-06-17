@@ -23,7 +23,7 @@ export default function Navigation({ opened }) {
   }
 
   return (
-    <Navbar p="xs" hiddenBreakpoint="sm" hidden={!opened} width={{ xs: 300, lg: 300 }}>
+    <Navbar p="xs" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 300, lg: 300, base: "100%" }}>
       <Navbar.Section grow>
         <NavLinks />
         <NavBtn icon={<i className="bi bi-share"></i>} color="cyan" label="Share" onClick={share} />
@@ -50,6 +50,9 @@ export default function Navigation({ opened }) {
           </Group>
         </UnstyledButton> */}
 
+      </Navbar.Section>
+      <Navbar.Section>
+        Hello
       </Navbar.Section>
     </Navbar>
   )
