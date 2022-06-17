@@ -22,7 +22,7 @@ export default function Todos() {
         sx={{ flex: 1 }}
       >{todo.task}</Text>
       <ActionIcon
-        color="red"
+        color="blue"
         variant="hover"
         onClick={() => setTodos((t) => {
           console.log(todo.favourite, t[index].favourite)
@@ -32,6 +32,17 @@ export default function Todos() {
         }
       >
         <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
+        {todo.favourite}
+      </ActionIcon>
+      <ActionIcon
+        color="red"
+        variant="hover"
+        onClick={() => setTodos((t) => {
+          return t.filter((_, i) => i != index)
+        })
+        }
+      >
+        <i className={`bi bi-trash`} size={16} />
         {todo.favourite}
       </ActionIcon>
     </Group>
