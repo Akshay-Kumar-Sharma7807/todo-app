@@ -18,6 +18,7 @@ import Navigation from './components/Navigation/Navigation';
 import { Routes, Route } from 'react-router-dom';
 import Settings from "./components/Settings"
 import Login from "./components/Login";
+import Head from "./components/Head/";
 
 
 export default function Layout() {
@@ -52,27 +53,7 @@ export default function Layout() {
       //   </Footer>
       // }
       header={
-        <Header height={60} p="sm">
-          <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-            <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-
-            <Title order={3}>Todo App</Title>
-            <Group ml="auto" m="md">
-              <ActionIcon><i className="bi bi-sun" /></ActionIcon>
-              <ActionIcon><i className="bi bi-gear" /></ActionIcon>
-              <ActionIcon><i className="bi bi-info-circle" /></ActionIcon>
-              <ActionIcon><i className="bi bi-person-circle" /></ActionIcon>
-            </Group>
-          </div>
-        </Header>
+        <Head setOpened={setOpened} opened={opened} />
       }
     >
       <Routes>
