@@ -8,7 +8,6 @@ function App() {
   const [todos, setTodos] = useLocalStorage({
     key: 'todos',
     defaultValue: [],
-    getInitialValueInEffect: true,
   });
 
   useEffect(() => {
@@ -19,7 +18,6 @@ function App() {
   const [colorScheme, setColorScheme] = useLocalStorage({
     key: 'mantine-color-scheme',
     defaultValue: 'light',
-    getInitialValueInEffect: true,
   });
 
   const toggleColorScheme = (value) =>

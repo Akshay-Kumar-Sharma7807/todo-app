@@ -17,6 +17,7 @@ export default function Todos() {
         t[index].completed = e.target.checked
         return [...t]
       })}
+        radius="xl"
         checked={todo.completed} />
       <Text
         sx={{ flex: 1 }}
@@ -24,11 +25,12 @@ export default function Todos() {
       <ActionIcon
         color="blue"
         variant="hover"
-        onClick={() => setTodos((t) => {
-          console.log(todo.favourite, t[index].favourite)
-          t[index].favourite = !todo.favourite
-          return [...t]
-        })
+        onClick={() => setTodos(todos.map((t, i) => {
+          if (i === index) {
+            t.favourite = !todo.favourite;
+          }
+          return t
+        }))
         }
       >
         <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
