@@ -1,4 +1,4 @@
-import { ActionIcon, Aside, Container, Drawer, Group, Switch, Text, Title, Tooltip } from '@mantine/core'
+import { ActionIcon, Avatar, Anchor, Container, Drawer, Group, Switch, Text, Title, Tooltip, Button } from '@mantine/core'
 import React, { useState } from 'react'
 
 export default function About() {
@@ -21,10 +21,35 @@ export default function About() {
         padding="md"
         size={400}
         shadow="lg"
+        overflow="outside"
       >
         <Title order={5} mb="md">
           Todo App
         </Title>
+        <Text>
+          Hello! In this fully featured and blazingly fast todo app you can
+          manage your daily tasks. This is a PWA (Progressive Web App) which
+          means it can be installed on your device. You can quickly access your
+          tasks and filter or sort them if you want to.
+        </Text>
+        <Title my="md" order={5}>About Me</Title>
+        <Group position="center">
+          <Avatar src="https://i.ibb.co/m6B7PSv/IMG-20200229-101104.jpg" radius={100} size={200} alt="Akshay Kumar Sharma" />
+          <Title order={4}>Akshay Kumar Sharma</Title>
+        </Group>
+        <Text>Email: <Anchor href="mailto:sharmaakshaykumar7807@gmail.com">sharmaakshaykumar7807@gmail.com</Anchor></Text>
+        <Text>Github: <Anchor href="https://github.com/Akshay-Kumar-Sharma7807" target="_blank">Akshay-Kumar-Sharma7807</Anchor></Text>
+        <Button
+          my="md"
+          component='a'
+          leftIcon={<i className="bi bi-discord" />}
+          href="https://discord.gg/s5SSnEcC"
+          target="_blank"
+          sx={(theme) => {
+            backgroundColor: theme.colors.indigo
+          }}
+        >Chat on Discord</Button>
+
       </Drawer>
     </>
   )
