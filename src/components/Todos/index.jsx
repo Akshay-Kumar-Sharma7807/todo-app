@@ -1,7 +1,19 @@
-import { Container, Button, Table, Modal, Group, Checkbox, Text, Divider, ActionIcon, Switch } from '@mantine/core'
+import { Container, Button, Table, Modal, Group, Checkbox, Text, Dialog, Divider, ActionIcon, Switch } from '@mantine/core'
 import React, { useState } from 'react'
 import AddTodo from "./AddTodo"
 import { useLocalStorage } from '@mantine/hooks';
+import { Routes, Route } from 'react-router-dom';
+import Important from './Important';
+import Planned from "./Planned";
+import All from "./All";
+import Completed from "./Completed";
+import AssignedToMe from "./AssignedToMe";
+import Tasks from "./Tasks";
+import Starred from "./Starred";
+import ListTodos from './ListTodos';
+import { MultiSelect } from '@mantine/core';
+import Filters from './Filters';
+
 
 export default function Todos() {
   const [todos, setTodos] = useLocalStorage({
@@ -9,46 +21,7 @@ export default function Todos() {
     defaultValue: [],
   });
   const [todoModal, setTodoModal] = useState(false);
-
-  const fields = todos.sort((a, b) => b.importance - a.importance).map((todo, index) => (
-    <Group key={index} mt="xs" size="lg">
-      <Checkbox onChange={(e) => setTodos((t) => {
-        console.log(e.target.checked)
-        t[index].completed = e.target.checked
-        return [...t]
-      })}
-        radius="xl"
-        checked={todo.completed} />
-      <Text
-        sx={{ flex: 1 }}
-      >{todo.task}</Text>
-      <ActionIcon
-        color="blue"
-        variant="hover"
-        onClick={() => setTodos(todos.map((t, i) => {
-          if (i === index) {
-            t.favourite = !todo.favourite;
-          }
-          return t
-        }))
-        }
-      >
-        <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
-        {todo.favourite}
-      </ActionIcon>
-      <ActionIcon
-        color="red"
-        variant="hover"
-        onClick={() => setTodos((t) => {
-          return t.filter((_, i) => i != index)
-        })
-        }
-      >
-        <i className={`bi bi-trash`} size={16} />
-        {todo.favourite}
-      </ActionIcon>
-    </Group>
-  ));
+  const [dialog, setDialog] = useState(false);
 
 
   return (
@@ -62,29 +35,35 @@ export default function Todos() {
         <AddTodo close={() => setTodoModal(false)} setTodos={setTodos} />
       </Modal>
 
-      <Group position="center">
-        <Button leftIcon={<i className="bi bi-plus"></i>} onClick={() => setTodoModal((t) => !t)}>
+      <Group position="apart">
+        <Button leftIcon={<i className="bi bi-plus" style={{ fontSize: "1.2rem" }}></i>} onClick={() => setTodoModal((t) => !t)}>
           Add New Task
         </Button>
-        {/* {
-          todos.map((todo) => {
-            return (
-              <>
-                <Group sx={(theme) => ({
+        <Button onClick={() => setDialog(true)}>
+          Sort & Filter
+        </Button>
+        <Dialog
+          opened={dialog}
+          withCloseButton
+          onClose={() => setDialog(false)}
+          size="xl"
+          radius="md"
+          position={{ top: 20, right: 20 }}
+        >
+          <Filters />
+        </Dialog>
 
-                })}
-                  p={8}
-                >
-                  <Checkbox checked={todo.completed}></Checkbox>
-                  <Text>{todo.task}</Text>
-                </Group>
-                <Divider />
-              </>
-            )
-          })
-        } */}
       </Group>
-      {fields}
+      <Routes>
+        <Route path="/my-day" element={<ListTodos todos={todos} setTodos={setTodos} filterFunc={(a) => a.myDay} />} />
+        <Route path="/important" element={<Important todos={todos} setTodos={setTodos} />} />
+        <Route path="/planned" element={<Planned todos={todos} setTodos={setTodos} />} />
+        <Route path="/all" element={<All todos={todos} setTodos={setTodos} />} />
+        <Route path="/completed" element={<Completed todos={todos} setTodos={setTodos} />} />
+        <Route path="/assigned-to-me" element={<AssignedToMe todos={todos} setTodos={setTodos} />} />
+        <Route path="/inbox" element={<Tasks todos={todos} setTodos={setTodos} />} />
+        <Route path="/starred" element={<Starred todos={todos} setTodos={setTodos} />} />
+      </Routes>
     </Container>
   )
 }

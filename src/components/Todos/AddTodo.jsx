@@ -8,6 +8,7 @@ export default function AddTodo({ close, setTodos }) {
       completed: false,
       importance: 25,
       favourite: false,
+      myDay: false,
     }
   });
 
@@ -28,7 +29,7 @@ export default function AddTodo({ close, setTodos }) {
       })}>
         <TextInput
           required
-          label="Add a Task"
+          label="Task's Name"
           placeholder="Task"
           {...form.getInputProps('task')}
         />
@@ -111,6 +112,7 @@ export default function AddTodo({ close, setTodos }) {
           </Menu>
 
         </Group>
+        <Checkbox label="Add to My Day" mt="sm" {...form.getInputProps('myDay')} />
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>
         </Group>

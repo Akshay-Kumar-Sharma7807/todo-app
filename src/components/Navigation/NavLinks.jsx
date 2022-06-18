@@ -48,6 +48,7 @@ const data = [
   { icon: <i className="bi bi-check-circle" />, color: 'teal', label: 'Completed', link: "/tasks/completed" },
   { icon: <i className="bi bi-person" />, color: 'grape', label: 'Assigned to me', link: "/tasks/assigned-to-me" },
   { icon: <i className="bi bi-clipboard-check" />, color: 'yellow', label: 'Tasks', link: "/tasks/inbox" },
+  { icon: <i className="bi bi-stars" />, color: 'pink', label: 'Starred', link: "/tasks/starred" },
 ];
 
 export function NavLinks() {
