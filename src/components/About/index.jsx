@@ -1,4 +1,4 @@
-import { ActionIcon, Avatar, Anchor, Container, Drawer, Group, Switch, Text, Title, Tooltip, Button } from '@mantine/core'
+import { ActionIcon, Avatar, Anchor, Container, Drawer, Group, Switch, Text, Title, Tooltip, Button, ScrollArea } from '@mantine/core'
 import React, { useState } from 'react'
 
 export default function About() {
@@ -17,12 +17,17 @@ export default function About() {
         position="right"
         opened={open}
         onClose={() => setOpen((o) => !o)}
-        title={<Title order={4}>About</Title>}
-        padding="md"
         size={400}
+        padding="md"
         shadow="lg"
-        overflow="outside"
+        title={<Title order={3}>About</Title>}
+        sx={{
+          "& .mantine-Drawer-drawer": {
+            overflowY: "auto",
+          }
+        }}
       >
+        {/* <ScrollArea style={{ height: "100vh" }}> */}
         <Title order={5} mb="md">
           Todo App
         </Title>
@@ -49,7 +54,7 @@ export default function About() {
             backgroundColor: theme.colors.indigo
           }}
         >Chat on Discord</Button>
-
+        {/* </ScrollArea> */}
       </Drawer>
     </>
   )

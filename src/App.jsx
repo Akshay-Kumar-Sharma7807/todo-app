@@ -10,10 +10,22 @@ function App() {
     defaultValue: [],
   });
 
+  if (!("Notification" in window)) {
+    console.log("This browser does not support notifications.");
+  } else {
+    Notification.requestPermission()
+      .then((permission) => {
+        Notification.permission = permission
+      })
+  }
+
   useEffect(() => {
-    // console.log("change in todos", todos);
-    localStorage.setItem("todos", JSON.stringify(todos))
-  }, [todos])
+    function checkDeadline() {
+      const now = new Date();
+      // TODO: Add some checks wheather the task is over or not
+    }
+    setInterval(checkDeadline, 1000)
+  }, [])
 
   const [colorScheme, setColorScheme] = useLocalStorage({
     key: 'mantine-color-scheme',

@@ -21,6 +21,11 @@ export default function Account() {
         padding="md"
         size={400}
         shadow="lg"
+        sx={{
+          "& .mantine-Drawer-drawer": {
+            overflowY: "auto",
+          }
+        }}
       >
         <Title order={5} mb="md">
           Hello!
