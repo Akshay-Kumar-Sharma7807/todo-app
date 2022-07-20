@@ -13,18 +13,24 @@ function App() {
   if (!("Notification" in window)) {
     console.log("This browser does not support notifications.");
   } else {
-    Notification.requestPermission()
-      .then((permission) => {
-        Notification.permission = permission
-      })
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission()
+        .then((permission) => {
+          Notification.permission = permission
+        })
+    }
   }
 
   useEffect(() => {
     function checkDeadline() {
       const now = new Date();
+      console.log("hello deadline")
       // TODO: Add some checks wheather the task is over or not
     }
-    setInterval(checkDeadline, 1000)
+    let i = setInterval(checkDeadline, 1000)
+    return () => {
+      clearInterval(i)
+    }
   }, [])
 
   const [colorScheme, setColorScheme] = useLocalStorage({

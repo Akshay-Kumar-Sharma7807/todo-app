@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Group, Checkbox, Text, ActionIcon } from "@mantine/core";
+import EditTodo from "./EditTodo";
 
 export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
   console.log(sortFunc, "and", filterFunc)
   sortFunc = sortFunc ?? function (a, b) { return b.importance - a.importance }
   filterFunc = filterFunc ?? function () { return true }
+
+  const [currentTodo, setCurrentTodo] = useState();
+  const [editMenu, setEditMenu] = useState(false);
+
+  const opneEditMenu = (index) => {
+    setCurrentTodo(todos[index]);
+    setEditMenu(true);
+  }
+
   return (
     <>
+      <EditTodo todo={currentTodo} editMenu={editMenu} setEditMenu={setEditMenu} />
+
       {
         todos.sort(sortFunc).filter(filterFunc).map((todo, index) => (
           <Group key={index} mt="xs" size="lg">
@@ -17,8 +29,10 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
             })}
               radius="xl"
               checked={todo.completed} />
+
             <Text
               sx={{ flex: 1 }}
+              onClick={() => { opneEditMenu(index) }}
             >{todo.task}</Text>
             <ActionIcon
               color="blue"
