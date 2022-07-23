@@ -1,11 +1,18 @@
 import React from 'react'
-import { Drawer, Title, Group, Textarea, Switch, Paper, TextInput, ActionIcon, ThemeIcon, Checkbox, MultiSelect } from "@mantine/core";
+import { Drawer, Title, Group, Slider, Textarea, Switch, Paper, TextInput, ActionIcon, ThemeIcon, Checkbox, MultiSelect, Footer, Text } from "@mantine/core";
 
-export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo, completeTodo, deleteTodo, addToMyDay, setTitle }) {
+export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo, completeTodo, deleteTodo, addToMyDay, setTitle, setNote, setImportance, setCategories }) {
   const todo = todos[index];
-  console.log("todos", todos);
+  const MARKS = [
+    { value: 0, label: 'Not Important' },
+    { value: 25, label: 'Less Important' },
+    { value: 50, label: 'Important' },
+    { value: 75, label: 'Very Important' },
+    { value: 100, label: 'Must Do' },
+  ];
 
-  return (
+
+  if (todos && todos[index]) return (
     <Drawer
       position="right"
       opened={editMenu}
@@ -80,12 +87,38 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
         <Textarea
           variant='unstyled'
           placeholder='Add note'
+          onChange={(e) => setNote(index, e.target.value)}
+          value={todo.note ?? ""}
+        />
+      </Paper>
+      <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
+        <Text>Specify Importance</Text>
+        <Slider
+          label={(val) => MARKS.find((mark) => mark.value === val).label}
+          marks={MARKS}
+          step={25}
+          value={todo.importance}
+          onChange={(importance) => setImportance(index, importance)}
+          styles={{ markLabel: { display: 'none' } }}
         />
       </Paper>
       <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
       </Paper>
-      <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
-      </Paper>
+      <Footer>
+        <Group p="sm" position="apart">
+          <ActionIcon
+            color="red"
+            variant="hover"
+            onClick={() => deleteTodo(index)}
+          >
+            <i className={`bi bi-trash`} size={16} />
+            {todo.favourite}
+          </ActionIcon>
+          <Text color="gray">Created Today</Text>
+        </Group>
+      </Footer>
     </Drawer>
   )
+
+  return <></>
 }

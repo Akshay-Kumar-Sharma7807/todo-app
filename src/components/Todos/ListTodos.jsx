@@ -47,10 +47,28 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
     }))
   }
 
-  const setTitle = (index, newTitle) => {
+  const setTitle = (index, title) => {
     setTodos(todos.map((t, i) => {
       if (i === index) {
-        t.task = newTitle;
+        t.task = title;
+      }
+      return t
+    }))
+  }
+
+  const setNote = (index, note) => {
+    setTodos(todos.map((t, i) => {
+      if (i === index) {
+        t.note = note;
+      }
+      return t
+    }))
+  }
+
+  const setImportance = (index, importance) => {
+    setTodos(todos.map((t, i) => {
+      if (i === index) {
+        t.importance = importance;
       }
       return t
     }))
@@ -68,6 +86,8 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
         deleteTodo={deleteTodo}
         starTodo={starTodo}
         setTitle={setTitle}
+        setNote={setNote}
+        setImportance={setImportance}
       />
 
       {
