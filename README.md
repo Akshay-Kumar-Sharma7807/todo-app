@@ -1,5 +1,5 @@
 # Todo App
-Organize your daily workflow with a retro style Todo App
+Organize your daily workflow with a modern style Todo App
 
 Todo App url: [aks-todo.web.app](https://aks-todo.web.app) 
 
@@ -13,17 +13,17 @@ This will open the app on ```localhost:3000```
 ## Features
 
 - Manage your daily tasks
-- Toggle between Retro Theme and Original Theme 🔥
+- Toggle between Light Theme and Dark Theme
 - Installable PWA 
 - Works Offline 📴
-- Blazingly fast ⚡
+- Blazingly fast ⚡ (It was, due to new features it's a bit slower now.)
 
 
 ## Technologies
 
 - React for Frontend
 - Firebase hosting and authentication
-- Custom CSS for retro style
+- Mantine UI Library
 - Workbox for service worker
 
 ## Live Demo
