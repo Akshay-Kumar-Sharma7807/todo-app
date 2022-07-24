@@ -1,9 +1,12 @@
 import { TextInput, Checkbox, Slider, Button, Group, Box, ActionIcon, Tooltip, Menu, Divider } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useId } from 'react';
 
 export default function AddTodo({ close, setTodos }) {
   const form = useForm({
     initialValues: {
+      categories: [],
+      id: useId(),
       task: '',
       completed: false,
       importance: 25,

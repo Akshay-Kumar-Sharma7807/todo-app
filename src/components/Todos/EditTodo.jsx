@@ -1,8 +1,10 @@
 import React from 'react'
-import { Drawer, Title, Group, Slider, Textarea, Switch, Paper, TextInput, ActionIcon, ThemeIcon, Checkbox, MultiSelect, Footer, Text } from "@mantine/core";
+import { Drawer, Title, Group, Slider, Textarea, Switch, Paper, TextInput, ActionIcon, ThemeIcon, Checkbox, MultiSelect, Footer, Text, Button } from "@mantine/core";
+import { Calendar } from '@mantine/dates';
+import { useLocalStorage } from '@mantine/hooks';
 
-export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo, completeTodo, deleteTodo, addToMyDay, setTitle, setNote, setImportance, setCategories }) {
-  const todo = todos[index];
+export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, completeTodo, deleteTodo, addToMyDay, setTitle, setNote, setImportance, updateCategories }) {
+  const todo = todos[todos.findIndex(t => t.id === id)];
   const MARKS = [
     { value: 0, label: 'Not Important' },
     { value: 25, label: 'Less Important' },
@@ -10,9 +12,18 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
     { value: 75, label: 'Very Important' },
     { value: 100, label: 'Must Do' },
   ];
+  const [categories, setCategories] = useLocalStorage({
+    key: "categories",
+    defaultValue: [
+      { value: "work", label: "Work" },
+      { value: "games", label: "Games" },
+      { value: "fun", label: "Fun" },
+      { value: "essentials", label: "Essentials" },
+    ],
+  })
 
 
-  if (todos && todos[index]) return (
+  if (todos && todo) return (
     <Drawer
       position="right"
       opened={editMenu}
@@ -28,8 +39,8 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
       }}
     >
       <Paper p="xs" shadow="sm" radius="md" mb="xs" withBorder>
-        <Group key={index} size="xl">
-          <Checkbox onChange={(e) => completeTodo(e, index)}
+        <Group size="xl">
+          <Checkbox onChange={(e) => completeTodo(e, id)}
             radius="xl"
             size="md"
             checked={todo.completed} />
@@ -40,12 +51,13 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
             size="md"
             variant="unstyled"
             value={todo.task}
-            onChange={(e) => setTitle(index, e.target.value)}
+            required
+            onChange={(e) => setTitle(id, e.target.value)}
           ></TextInput>
           <ActionIcon
             color="blue"
             variant="hover"
-            onClick={() => starTodo(index)}
+            onClick={() => starTodo(id)}
             size="lg"
           >
             <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={20} />
@@ -55,7 +67,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
       </Paper>
 
       <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
-        <Switch size="md" label="Add to my day" name="my-day" checked={todo.myDay} onChange={() => addToMyDay(index)}></Switch>
+        <Switch size="md" label="Add to my day" name="my-day" checked={todo.myDay} onChange={() => addToMyDay(id)}></Switch>
       </Paper>
       <Paper shadow="sm" radius="md" p="xs" mb="xs" withBorder>
         <Group >
@@ -64,20 +76,17 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
           </ThemeIcon> */}
           <MultiSelect
             sx={{ flex: 1 }}
-            data={[
-              { value: "kjsdf", label: "Work" },
-              { value: "dfg", label: "Games" },
-              { value: "afd", label: "Fun" },
-              { value: "xcvb", label: "Essentials" },
-            ]}
+            data={categories}
             placeholder="Choose a Category"
             searchable
             nothingFound="Nothing found"
             creatable
             getCreateLabel={(query) => `+ Create ${query}`}
             variant="unstyled"
+            value={todo.categories ?? []}
+            onChange={(categories) => updateCategories(id, categories)}
             // complete this function to update categories
-            // onCreate={(query) => setData((current) => [...current, query])}
+            onCreate={(query) => setCategories((current) => [...current, { value: query.toLowerCase(), label: query }])}
             icon={<i className="bi bi-tag" />}
           />
         </Group>
@@ -87,7 +96,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
         <Textarea
           variant='unstyled'
           placeholder='Add note'
-          onChange={(e) => setNote(index, e.target.value)}
+          onChange={(e) => setNote(id, e.target.value)}
           value={todo.note ?? ""}
         />
       </Paper>
@@ -98,18 +107,38 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
           marks={MARKS}
           step={25}
           value={todo.importance}
-          onChange={(importance) => setImportance(index, importance)}
+          onChange={(importance) => setImportance(id, importance)}
           styles={{ markLabel: { display: 'none' } }}
         />
       </Paper>
-      <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
+      <Paper shadow="sm" radius="md" mb="xs" withBorder>
+
+        <Button variant="subtle" size="md" fullWidth color="gray" sx={{ flex: 1 }}
+          leftIcon={<i className="bi bi-bell" />}
+          style={{ justifyContent: "flex-start" }}
+        >
+          Remind me
+        </Button>
+        <Button variant="subtle" size="md" fullWidth color="gray" sx={{ flex: 1 }}
+          leftIcon={<i className="bi bi-calendar" />}
+        >
+          Add Due Date
+        </Button>
+        <Button variant="subtle" size="md" fullWidth color="gray" sx={{ flex: 1 }}
+          leftIcon={<i className="bi bi-alarm" />}
+        >
+          Repeat
+        </Button>
+        {/* <Paper></Paper> */}
+        {/* <Paper></Paper> */}
+        {/* <Paper></Paper> */}
       </Paper>
       <Footer>
         <Group p="sm" position="apart">
           <ActionIcon
             color="red"
             variant="hover"
-            onClick={() => deleteTodo(index)}
+            onClick={() => deleteTodo(id)}
           >
             <i className={`bi bi-trash`} size={16} />
             {todo.favourite}
@@ -117,7 +146,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, index, starTodo
           <Text color="gray">Created Today</Text>
         </Group>
       </Footer>
-    </Drawer>
+    </Drawer >
   )
 
   return <></>

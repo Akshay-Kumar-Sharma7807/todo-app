@@ -1,76 +1,89 @@
 import React, { useState } from 'react'
-import { Group, Checkbox, Text, ActionIcon, Paper } from "@mantine/core";
+import { Group, Checkbox, Text, UnstyledButton, ActionIcon, Paper } from "@mantine/core";
 import EditTodo from "./EditTodo";
 
 export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
-  console.log(sortFunc, "and", filterFunc)
+  // console.log(sortFunc, "and", filterFunc)
   sortFunc = sortFunc ?? function (a, b) { return b.importance - a.importance }
   filterFunc = filterFunc ?? function () { return true }
 
-  const [currentIndex, setIndex] = useState(0);
+  const [currentId, setId] = useState(0);
   const [editMenu, setEditMenu] = useState(false);
 
-  const openEditMenu = (index) => {
-    setIndex(index);
+
+  // API's to manipulate todos
+
+  const openEditMenu = (id) => {
+    setId(id);
     setEditMenu(true);
   }
 
-  const deleteTodo = (index) => {
-    setTodos((t) => {
-      return t.filter((_, i) => i != index)
+  const deleteTodo = (id) => {
+    setTodos((list) => {
+      return list.filter((t) => t.id != id)
     })
   }
 
-  const starTodo = (index) => {
-    setTodos(todos.map((t, i) => {
-      if (i === index) {
-        t.favourite = !todos[index].favourite;
+  const starTodo = (id) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
+        t.favourite = !t.favourite;
       }
       return t
     }))
   }
 
-  const completeTodo = (e, index) => {
-    setTodos((t) => {
-      console.log(e.target.checked)
-      t[index].completed = e.target.checked
-      return [...t]
-    })
-  }
-
-  const addToMyDay = (index) => {
-    setTodos(todos.map((t, i) => {
-      if (i === index) {
-        t.myDay = !todos[index].myDay;
+  const completeTodo = (e, id) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
+        t.completed = e.target.checked
       }
       return t
     }))
   }
 
-  const setTitle = (index, title) => {
-    setTodos(todos.map((t, i) => {
-      if (i === index) {
+  const addToMyDay = (id) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
+        t.myDay = !t.myDay;
+      }
+      return t
+    }))
+  }
+
+  const setTitle = (id, title) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
         t.task = title;
       }
       return t
     }))
   }
 
-  const setNote = (index, note) => {
-    setTodos(todos.map((t, i) => {
-      if (i === index) {
+  const setNote = (id, note) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
         t.note = note;
       }
       return t
     }))
   }
 
-  const setImportance = (index, importance) => {
-    setTodos(todos.map((t, i) => {
-      if (i === index) {
+  const setImportance = (id, importance) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
         t.importance = importance;
       }
       return t
+    }))
+  }
+
+  const updateCategories = (id, categories) => {
+    setTodos(todos.map((t) => {
+      if (t.id === id) {
+        t.categories = categories;
+      }
+      return t;
     }))
   }
 
@@ -79,7 +92,7 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
       <EditTodo
         addToMyDay={addToMyDay}
         todos={todos}
-        index={currentIndex}
+        id={currentId}
         editMenu={editMenu}
         setEditMenu={setEditMenu}
         completeTodo={completeTodo}
@@ -88,24 +101,25 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
         setTitle={setTitle}
         setNote={setNote}
         setImportance={setImportance}
+        updateCategories={updateCategories}
       />
 
       {
-        todos.sort(sortFunc).filter(filterFunc).map((todo, index) => (
-          <Paper p="sm" shadow="md" radius="md" mt="xs" >
-            <Group key={index} size="lg">
-              <Checkbox onChange={(e) => completeTodo(e, index)}
+        todos.sort(sortFunc).filter(filterFunc).map((todo) => (
+          <Paper p="sm" shadow="md" radius="md" mt="xs" key={todo.id} >
+            <Group key={todo.id} size="lg">
+              <Checkbox onChange={(e) => completeTodo(e, todo.id)}
                 radius="xl"
                 checked={todo.completed} />
 
-              <Text
+              <UnstyledButton
                 sx={{ flex: 1 }}
-                onClick={() => { openEditMenu(index) }}
-              >{todo.task}</Text>
+                onClick={() => { openEditMenu(todo.id) }}
+              >{todo.task}</UnstyledButton>
               <ActionIcon
                 color="blue"
                 variant="hover"
-                onClick={() => starTodo(index)}
+                onClick={() => starTodo(todo.id)}
               >
                 <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
                 {todo.favourite}
@@ -113,7 +127,7 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
               <ActionIcon
                 color="red"
                 variant="hover"
-                onClick={() => deleteTodo(index)}
+                onClick={() => deleteTodo(todo.id)}
               >
                 <i className={`bi bi-trash`} size={16} />
                 {todo.favourite}
