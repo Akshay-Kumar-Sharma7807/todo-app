@@ -1,7 +1,7 @@
 # Todo App
 Organize your daily workflow with a retro style Todo App
 
-Todo App url: [aks-todo.web.app](aks-todo.web.app) 
+Todo App url: [https://aks-todo.web.app](aks-todo.web.app) 
 
 ## Installation
 ```
