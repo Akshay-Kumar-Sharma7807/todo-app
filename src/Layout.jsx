@@ -17,7 +17,7 @@ import Todos from './components/Todos/';
 import Navigation from './components/Navigation/Navigation';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Settings from "./components/Settings";
-import Login from "./components/Login";
+// import Login from "./components/Login";
 import Head from "./components/Head/";
 import Important from "./components/Todos/Important/";
 
@@ -72,7 +72,7 @@ export default function Layout() {
         {/* <Route path="/tasks/inbox" element={<div>Tasks</div>} /> */}
 
         <Route path="/settings" element={<Settings />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
       </Routes>
     </AppShell>
   );

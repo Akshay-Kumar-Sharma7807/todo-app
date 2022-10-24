@@ -42,9 +42,6 @@ export default function AddTodo({ close, setTodos }) {
         categories: values.categories,
         created: values.created,
       })
-        .then((result) => {
-          console.log(result)
-        })
     }
     else {
       console.log("user not signed in");
