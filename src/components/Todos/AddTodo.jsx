@@ -1,22 +1,23 @@
 import { TextInput, Checkbox, Slider, Button, Group, Box, ActionIcon, Tooltip, Menu, Divider } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useId } from 'react';
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import uuid from 'react-uuid';
 
 export default function AddTodo({ close, setTodos }) {
   const [user] = useAuthState(auth)
   const form = useForm({
     initialValues: {
-      id: useId(),
+      id: uuid(),
       task: '',
       completed: false,
       importance: 25,
       favourite: false,
       myDay: false,
       categories: [],
-      created: Date.now(),
+      created: serverTimestamp(),
     }
   });
 
@@ -33,15 +34,7 @@ export default function AddTodo({ close, setTodos }) {
     if (user) {
 
 
-      setDoc(doc(db, "Tasks", user.uid, "Task", values.id), {
-        task: values.task,
-        completed: values.task,
-        importance: values.importance,
-        favourite: values.favourite,
-        myDay: values.myDay,
-        categories: values.categories,
-        created: values.created,
-      })
+      setDoc(doc(db, "Users", user.uid, "Tasks", values.id), values)
     }
     else {
       console.log("user not signed in");

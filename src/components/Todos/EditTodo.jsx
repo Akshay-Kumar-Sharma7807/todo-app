@@ -2,8 +2,12 @@ import React from 'react'
 import { Drawer, Title, Group, Slider, Textarea, Switch, Paper, TextInput, ActionIcon, ThemeIcon, Checkbox, MultiSelect, Footer, Text, Button } from "@mantine/core";
 import { Calendar } from '@mantine/dates';
 import { useLocalStorage } from '@mantine/hooks';
+import { updateDoc, doc } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db } from '../../firebase';
 
 export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, completeTodo, deleteTodo, addToMyDay, setTitle, setNote, setImportance, updateCategories }) {
+  const [user] = useAuthState(auth);
   const todo = todos[todos.findIndex(t => t.id === id)];
   const MARKS = [
     { value: 0, label: 'Not Important' },
@@ -27,7 +31,13 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
     <Drawer
       position="right"
       opened={editMenu}
-      onClose={() => setEditMenu((o) => !o)}
+      onClose={() => {
+        setEditMenu((o) => !o)
+        if (user) {
+          updateDoc(doc(db, "Users", user.uid, "Tasks", todo.id), todo)
+
+        }
+      }}
       title={<Title order={4}>{todo.task}</Title>}
       padding="md"
       size={400}

@@ -13,16 +13,49 @@ import Starred from "./Starred";
 import ListTodos from './ListTodos';
 import { MultiSelect } from '@mantine/core';
 import Filters from './Filters';
+import { db, auth } from '../../firebase';
+import { collection, onSnapshot, onSnapshotsInSync, orderBy, query } from 'firebase/firestore';
+import { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 
 
 export default function Todos() {
+  const [user, loading] = useAuthState(auth);
   const [todos, setTodos] = useLocalStorage({
     key: 'todos',
     defaultValue: [],
   });
+  // const [todos, setTodos] = useState([]);
   const [todoModal, setTodoModal] = useState(false);
   const [dialog, setDialog] = useState(false);
+
+  // if (user) {
+  useEffect(() => {
+    let unsubscribe;
+    if (user && !loading) {
+      unsubscribe = onSnapshot(query(collection(db, "Users", user?.uid, "Tasks"), orderBy("created")), (snapshot) => {
+        console.log("snapshot: ", snapshot);
+        const tasks = [];
+        snapshot.forEach((task) => {
+          tasks.push(task.data());
+        });
+        console.log(tasks);
+        setTodos(tasks)
+      })
+
+    }
+
+
+    return () => {
+      if (user) {
+        unsubscribe();
+      }
+    }
+  }, [loading])
+  // }
+
 
 
   return (
