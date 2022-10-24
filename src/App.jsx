@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout"
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+import ReloadPrompt from "./components/ReloadPrompt"
 
 function App() {
   const [todos, setTodos] = useLocalStorage({
@@ -10,28 +11,16 @@ function App() {
     defaultValue: [],
   });
 
-  if (!("Notification" in window)) {
-    console.log("This browser does not support notifications.");
-  } else {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission()
-        .then((permission) => {
-          Notification.permission = permission
-        })
-    }
-  }
-
-  useEffect(() => {
-    function checkDeadline() {
-      const now = new Date();
-      console.log("hello deadline")
-      // TODO: Add some checks wheather the task is over or not
-    }
-    let i = setInterval(checkDeadline, 1000)
-    return () => {
-      clearInterval(i)
-    }
-  }, [])
+  // if (!("Notification" in window)) {
+  //   console.log("This browser does not support notifications.");
+  // } else {
+  //   if (Notification.permission !== "granted") {
+  //     Notification.requestPermission()
+  //       .then((permission) => {
+  //         Notification.permission = permission
+  //       })
+  //   }
+  // }
 
   const [colorScheme, setColorScheme] = useLocalStorage({
     key: 'mantine-color-scheme',
@@ -48,6 +37,7 @@ function App() {
       <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
         <Router>
           <div className={"App"}>
+            <ReloadPrompt />
             <Layout />
           </div>
         </Router>

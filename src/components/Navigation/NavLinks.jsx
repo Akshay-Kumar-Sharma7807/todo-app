@@ -56,7 +56,7 @@ export function NavLinks() {
   return (
     <div>
       {links}
-      <Divider />
+      <Divider my={4} />
     </div>
   )
 }
