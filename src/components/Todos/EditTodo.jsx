@@ -66,7 +66,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
           ></TextInput>
           <ActionIcon
             color="blue"
-            variant="hover"
+            variant="subtle"
             onClick={() => starTodo(id)}
             size="lg"
           >
@@ -76,7 +76,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
         </Group>
       </Paper>
 
-      <Paper shadow="sm" radius="md" p="md" mb="xs" withBorder>
+      <Paper shadow="sm" radius="md" p="xs" mb="xs" withBorder>
         <Switch size="md" label="Add to my day" name="my-day" checked={todo.myDay} onChange={() => addToMyDay(id)}></Switch>
       </Paper>
       <Paper shadow="sm" radius="md" p="xs" mb="xs" withBorder>
@@ -102,7 +102,7 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
         </Group>
       </Paper>
 
-      <Paper shadow="sm" radius="md" p="xs" mb="xs" withBorder>
+      <Paper shadow="sm" radius="md" px="xs" mb="xs" withBorder>
         <Textarea
           variant='unstyled'
           placeholder='Add note'
@@ -147,13 +147,13 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
         <Group p="sm" position="apart">
           <ActionIcon
             color="red"
-            variant="hover"
+            variant="subtle"
             onClick={() => deleteTodo(id)}
           >
             <i className={`bi bi-trash`} size={16} />
             {todo.favourite}
           </ActionIcon>
-          <Text color="gray">Created Today</Text>
+          <Text variant='secondary'>Created Today</Text>
         </Group>
       </Footer>
     </Drawer >

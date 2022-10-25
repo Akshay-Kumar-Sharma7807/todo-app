@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Group, Checkbox, Text, UnstyledButton, ActionIcon, Paper } from "@mantine/core";
 import EditTodo from "./EditTodo";
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db } from '../../firebase';
 
 export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
+  const [user] = useAuthState(auth)
   // console.log(sortFunc, "and", filterFunc)
   sortFunc = sortFunc ?? function (a, b) { return b.importance - a.importance }
   filterFunc = filterFunc ?? function () { return true }
@@ -22,15 +26,25 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
     setTodos((list) => {
       return list.filter((t) => t.id != id)
     })
+    if (user) {
+      deleteDoc(doc(db, "Users", user.uid, "Tasks", id))
+    }
   }
 
   const starTodo = (id) => {
+    let fav;
     setTodos(todos.map((t) => {
       if (t.id === id) {
+        fav = !t.favourite;
         t.favourite = !t.favourite;
       }
       return t
     }))
+    if (user) {
+      updateDoc(doc(db, "Users", user.uid, "Tasks", id), {
+        favourite: fav
+      })
+    }
   }
 
   const completeTodo = (e, id) => {
@@ -40,6 +54,12 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
       }
       return t
     }))
+
+    if (user) {
+      updateDoc(doc(db, "Users", user.uid, "Tasks", id), {
+        completed: e.target.checked
+      })
+    }
   }
 
   const addToMyDay = (id) => {
@@ -118,7 +138,7 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
               >{todo.task}</UnstyledButton>
               <ActionIcon
                 color="blue"
-                variant="hover"
+                variant="subtle"
                 onClick={() => starTodo(todo.id)}
               >
                 <i className={`bi bi-star${todo.favourite ? "-fill" : ""}`} size={16} />
@@ -126,7 +146,7 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
               </ActionIcon>
               <ActionIcon
                 color="red"
-                variant="hover"
+                variant="subtle"
                 onClick={() => deleteTodo(todo.id)}
               >
                 <i className={`bi bi-trash`} size={16} />

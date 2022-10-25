@@ -1,12 +1,20 @@
-import { TextInput, Checkbox, Slider, Button, Group, Box, ActionIcon, Tooltip, Menu, Divider } from '@mantine/core';
+import { TextInput, Checkbox, Slider, Button, Group, Box, ActionIcon, Tooltip, Menu, Divider, Popover, Badge } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useId } from 'react';
+import { useState } from 'react';
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Calendar, TimeInput } from '@mantine/dates';
+
 import uuid from 'react-uuid';
+import { useEffect } from 'react';
 
 export default function AddTodo({ close, setTodos }) {
+  const [dueDate, setDueDate] = useState(null);
+  useEffect(() => {
+    console.log(dueDate);
+  }, [dueDate])
+  const [dueMenu, setDueMenu] = useState(false);
   const [user] = useAuthState(auth)
   const form = useForm({
     initialValues: {
@@ -62,81 +70,100 @@ export default function AddTodo({ close, setTodos }) {
           {...form.getInputProps('importance')}
         />
 
-        {/* <Checkbox
-          mt="md"
-          label="Completed"
-          disabled
-          {...form.getInputProps('completed', { type: 'checkbox' })}
-        /> */}
         <Group mt="md">
-
           <Menu
             transition="rotate-right"
             transitionDuration={100}
             transitionTimingFunction="ease"
-            control={
-              <Tooltip label="Add Due Date" withArrow>
-                <ActionIcon color="green" title="Add Due Date"><i className="bi bi-calendar" /></ActionIcon>
-              </Tooltip>
-            }
+            width={200}
+            closeOnItemClick={false}
           >
+            <Menu.Target >
+              <Tooltip label="Add Due Date" withArrow>
+                <Group spacing={2}>
+                  <ActionIcon color="green" title="Add Due Date">
+                    <i className="bi bi-calendar" />
+                  </ActionIcon>
+                  {dueDate &&
+                    <Badge>
+                      {dueDate.toDateString()}
+                    </Badge>
+                  }
+                </Group>
+              </Tooltip>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Label position="center">Due</Menu.Label>
+              <Divider my={4} />
+              <Menu.Item onClick={() => setDueDate(new Date())}>Today</Menu.Item>
+              <Menu.Item onClick={() => setDueDate(new Date(Date.now() + (25 * 60 * 60 * 1000)))}>Tomorrow</Menu.Item>
+              <Menu.Item onClick={() => setDueDate(new Date(Date.now() + (25 * 60 * 60 * 1000 * 7)))}>Next Week</Menu.Item>
+              <Divider my={4} />
+              <Popover position="right" withArrow>
+                <Popover.Target>
+                  <Menu.Item rightSection={<i className="bi bi-arrow-right"></i>}>Pick Date</Menu.Item>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Calendar onChange={setDueDate} value={dueDate} />
 
-            <Menu.Label position="center">Add Due Date</Menu.Label>
-            <Divider />
-            <Menu.Item>Today</Menu.Item>
-            <Menu.Item>Tomorrow</Menu.Item>
-            <Menu.Item>Next Week</Menu.Item>
-            <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>
-              <Menu
-                transition="rotate-right"
-                transitionDuration={100}
-                transitionTimingFunction="ease"
-                control={
-                  <p>Pick Date</p>
-                }>
-                <Menu.Item>kjfdlkj</Menu.Item>
-              </Menu>
-            </Menu.Item>
+                </Popover.Dropdown>
+              </Popover>
+
+            </Menu.Dropdown>
 
           </Menu>
           <Menu
             transition="rotate-right"
             transitionDuration={100}
             transitionTimingFunction="ease"
-            control={
+            width={200}
+          // closeOnItemClick={false}
+          >
+            <Menu.Target>
+
               <Tooltip label="Remind Me" withArrow>
                 <ActionIcon color="blue" title="Remind Me"><i className="bi bi-bell" /></ActionIcon>
               </Tooltip>
-            }
-          >
+            </Menu.Target>
 
-            <Menu.Label position="center">Add Reminder</Menu.Label>
-            <Divider />
-            <Menu.Item>Later Today</Menu.Item>
-            <Menu.Item>Tomorrow</Menu.Item>
-            <Menu.Item>Next Week</Menu.Item>
-            <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>Pick Date & Time</Menu.Item>
+            <Menu.Dropdown>
+              <Menu.Label position="center">Add Reminder</Menu.Label>
+              <Divider />
+              <Menu.Item>Later Today</Menu.Item>
+              <Menu.Item>Tomorrow</Menu.Item>
+              <Menu.Item>Next Week</Menu.Item>
+
+              <Menu.Label position="center">Custom</Menu.Label>
+              <Divider my={4} />
+              {/* <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>Pick Date & Time</Menu.Item> */}
+              {/* <Menu.Item> */}
+              <TimeInput format="12" defaultValue={new Date()} />
+              {/* </Menu.Item> */}
+
+            </Menu.Dropdown>
 
           </Menu>
           <Menu
             transition="rotate-right"
             transitionDuration={100}
             transitionTimingFunction="ease"
-            control={
-              <Tooltip label="Repeat" withArrow>
-                <ActionIcon color="indigo" title="Repeat"><i className="bi bi-alarm" /></ActionIcon>
-              </Tooltip>
-            }
-          >
+            width={200}
 
-            <Menu.Label position="center">Repeat</Menu.Label>
-            <Divider />
-            <Menu.Item>Daily</Menu.Item>
-            <Menu.Item>WeekDays</Menu.Item>
-            <Menu.Item>Weekly</Menu.Item>
-            <Menu.Item>Monthly</Menu.Item>
-            <Menu.Item>Yearly</Menu.Item>
-            <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>Custom</Menu.Item>
+          >
+            <Menu.Target><Tooltip label="Repeat" withArrow>
+              <ActionIcon color="indigo" title="Repeat"><i className="bi bi-alarm" /></ActionIcon>
+            </Tooltip></Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Label position="center">Repeat</Menu.Label>
+              <Divider />
+              <Menu.Item>Daily</Menu.Item>
+              <Menu.Item>WeekDays</Menu.Item>
+              <Menu.Item>Weekly</Menu.Item>
+              <Menu.Item>Monthly</Menu.Item>
+              <Menu.Item>Yearly</Menu.Item>
+              <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>Custom</Menu.Item>
+            </Menu.Dropdown>
 
           </Menu>
 

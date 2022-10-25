@@ -73,19 +73,20 @@ export default function Todos() {
         <Button leftIcon={<i className="bi bi-plus" style={{ fontSize: "1.2rem" }}></i>} onClick={() => setTodoModal((t) => !t)}>
           Add New Task
         </Button>
-        <Button onClick={() => setDialog(true)}>
+        <Button variant='outline' onClick={() => setDialog(true)}>
           Sort & Filter
         </Button>
-        <Dialog
+        <Modal
           opened={dialog}
           withCloseButton
           onClose={() => setDialog(false)}
-          size="xl"
-          radius="md"
-          position={{ top: 20, right: 20 }}
+          title="Filter or Sort Tasks"
+        // size="xl"
+        // radius="md"
+        // position={{ top: 20, right: 20 }}
         >
           <Filters />
-        </Dialog>
+        </Modal>
 
       </Group>
       <Routes>

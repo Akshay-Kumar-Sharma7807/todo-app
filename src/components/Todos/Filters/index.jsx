@@ -1,5 +1,5 @@
 import React from 'react'
-import { Group, MultiSelect, Text } from "@mantine/core"
+import { Group, MultiSelect, Stack, Text } from "@mantine/core"
 
 const filters = [
   { value: 'my-day', label: 'My Day' },
@@ -21,8 +21,7 @@ const sorts = [
 export default function Filters() {
   return (
     <>
-      <Text mb="md" sx={{ fontWeight: 500 }}>Filter or Sort Tasks</Text>
-      <Group position="center">
+      <Stack position="center">
         <MultiSelect
           data={filters}
           placeholder="Filters"
@@ -32,7 +31,7 @@ export default function Filters() {
           data={sorts}
           placeholder="Sort By"
         />
-      </Group>
+      </Stack>
     </>
   )
 }
