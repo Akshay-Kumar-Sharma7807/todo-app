@@ -5,6 +5,7 @@ import Settings from "../Settings/"
 import About from "../About/"
 import Account from "../Account/"
 
+
 export default function Head({ opened, setOpened }) {
   const theme = useMantineTheme();
 
@@ -20,6 +21,7 @@ export default function Head({ opened, setOpened }) {
             mr="xl"
           />
         </MediaQuery>
+
 
         <Title order={3}>Todo App</Title>
         <Group ml="auto" m="md">

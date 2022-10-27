@@ -1,4 +1,4 @@
-import { ActionIcon, Avatar, Anchor, Container, Drawer, Group, Switch, Text, Title, Tooltip, Button, ScrollArea } from '@mantine/core'
+import { ActionIcon, Avatar, Anchor, Container, Drawer, Group, Switch, Text, Title, Tooltip, Button, ScrollArea, MediaQuery } from '@mantine/core'
 import React, { useState } from 'react'
 
 export default function About() {
@@ -9,9 +9,13 @@ export default function About() {
   return (
     <>
       <Tooltip label="About" withArrow>
-        <ActionIcon variant="default" onClick={() => toggleAbout()}>
-          <i className='bi bi-info-circle'></i>
-        </ActionIcon>
+
+        <MediaQuery smallerThan={390} styles={{ display: 'none' }}>
+          <ActionIcon variant="default" onClick={() => toggleAbout()}>
+            <i className='bi bi-info-circle'></i>
+          </ActionIcon>
+
+        </MediaQuery>
       </Tooltip>
       <Drawer
         position="right"
