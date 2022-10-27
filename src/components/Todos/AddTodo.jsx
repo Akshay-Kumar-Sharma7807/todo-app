@@ -26,6 +26,8 @@ export default function AddTodo({ close, setTodos }) {
       myDay: false,
       categories: [],
       created: serverTimestamp(),
+      notified: false,
+      dueDate: dueDate,
     }
   });
 
@@ -39,6 +41,7 @@ export default function AddTodo({ close, setTodos }) {
   ];
 
   const addNewTask = (values) => {
+    values.dueDate = dueDate;
     if (user) {
 
 
