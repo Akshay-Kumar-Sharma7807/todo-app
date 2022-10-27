@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 
 export default function AddTodo({ close, setTodos }) {
   const [dueDate, setDueDate] = useState(null);
+  const [reminder, setReminder] = useState(null);
+
   useEffect(() => {
     console.log(dueDate);
   }, [dueDate])
@@ -80,21 +82,22 @@ export default function AddTodo({ close, setTodos }) {
             transitionTimingFunction="ease"
             width={200}
             closeOnItemClick={false}
+            withArrow
           >
-            <Menu.Target >
-              <Tooltip label="Add Due Date" withArrow>
-                <Group spacing={2}>
+            <Tooltip label="Add Due Date" withArrow>
+              <Group spacing={2}>
+                <Menu.Target>
                   <ActionIcon color="green" title="Add Due Date">
                     <i className="bi bi-calendar" />
                   </ActionIcon>
-                  {dueDate &&
-                    <Badge>
-                      {dueDate.toDateString()}
-                    </Badge>
-                  }
-                </Group>
-              </Tooltip>
-            </Menu.Target>
+                </Menu.Target>
+                {dueDate &&
+                  <Badge>
+                    {dueDate.toDateString()}
+                  </Badge>
+                }
+              </Group>
+            </Tooltip>
             <Menu.Dropdown>
               <Menu.Label position="center">Due</Menu.Label>
               <Divider my={4} />
@@ -102,15 +105,24 @@ export default function AddTodo({ close, setTodos }) {
               <Menu.Item onClick={() => setDueDate(new Date(Date.now() + (25 * 60 * 60 * 1000)))}>Tomorrow</Menu.Item>
               <Menu.Item onClick={() => setDueDate(new Date(Date.now() + (25 * 60 * 60 * 1000 * 7)))}>Next Week</Menu.Item>
               <Divider my={4} />
+
               <Popover position="right" withArrow>
                 <Popover.Target>
                   <Menu.Item rightSection={<i className="bi bi-arrow-right"></i>}>Pick Date</Menu.Item>
                 </Popover.Target>
                 <Popover.Dropdown>
                   <Calendar onChange={setDueDate} value={dueDate} />
-
                 </Popover.Dropdown>
               </Popover>
+
+              {dueDate &&
+                <>
+                  <Divider my={4} />
+                  <Menu.Item color="red" onClick={() => setDueDate(null)}>
+                    Remove Due Date
+                  </Menu.Item>
+                </>}
+
 
             </Menu.Dropdown>
 
