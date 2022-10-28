@@ -4,10 +4,11 @@ import ThemeToggle from "./ThemeToggle"
 import Settings from "../Settings/"
 import About from "../About/"
 import Account from "../Account/"
-
+import { useSpotlight } from '@mantine/spotlight'
 
 export default function Head({ opened, setOpened }) {
   const theme = useMantineTheme();
+  const spotlight = useSpotlight();
 
   return (
     <Header height={60} p="sm">
@@ -25,6 +26,9 @@ export default function Head({ opened, setOpened }) {
 
         <Title order={3}>Todo</Title>
         <Group ml="auto" m="md">
+          <ActionIcon onClick={() => spotlight.openSpotlight()} variant="default">
+            <i className='bi bi-search'></i>
+          </ActionIcon>
           <ThemeToggle />
           <Settings />
           <About />

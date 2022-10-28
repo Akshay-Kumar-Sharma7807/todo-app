@@ -1,4 +1,4 @@
-import { Navbar, Text, Box, ThemeIcon, Group, UnstyledButton } from "@mantine/core";
+import { Navbar, Text, Box, ThemeIcon, Group, UnstyledButton, ScrollArea } from "@mantine/core";
 import { NavLinks, MainLink } from "./NavLinks";
 import NavBtn from "./NavBtn";
 import { useLocation } from "react-router-dom";
@@ -27,10 +27,13 @@ export default function Navigation({ opened }) {
 
   return (
     <Navbar p="xs" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 300, lg: 300, base: "100%" }}>
-      <Navbar.Section grow>
-        <NavLinks />
-        <NavBtn icon={<i className="bi bi-share"></i>} color="cyan" label="Share" onClick={share} />
-      </Navbar.Section>
+      <ScrollArea>
+        <Navbar.Section grow>
+          <NavLinks />
+          <NavBtn icon={<i className="bi bi-share"></i>} color="cyan" label="Share" onClick={share} />
+        </Navbar.Section>
+
+      </ScrollArea>
     </Navbar>
   )
 }

@@ -8,6 +8,7 @@ import { NotificationsProvider, showNotification } from '@mantine/notifications'
 import { updateDoc, doc } from 'firebase/firestore';
 import { db, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { SpotlightProvider } from "@mantine/spotlight";
 import { useDocumentVisibility } from "@mantine/hooks";
 
 function App() {
@@ -78,12 +79,21 @@ function App() {
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
         <NotificationsProvider>
-          <Router>
-            <div className={"App"}>
-              <ReloadPrompt />
-              <Layout />
-            </div>
-          </Router>
+
+          <SpotlightProvider shortcut={['mod + P', 'mod + K', '/']} actions={todos.map(todo => {
+            return {
+              title: todo.task,
+              onTrigger: () => console.log("trigger")
+            }
+          })}>
+            <Router>
+              <div className={"App"}>
+                <ReloadPrompt />
+                <Layout />
+              </div>
+            </Router>
+
+          </SpotlightProvider>
         </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
