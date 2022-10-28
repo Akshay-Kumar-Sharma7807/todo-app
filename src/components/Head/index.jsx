@@ -23,7 +23,7 @@ export default function Head({ opened, setOpened }) {
         </MediaQuery>
 
 
-        <Title order={3}>Todo App</Title>
+        <Title order={3}>Todo</Title>
         <Group ml="auto" m="md">
           <ThemeToggle />
           <Settings />

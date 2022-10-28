@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Group, Checkbox, Text, UnstyledButton, ActionIcon, Paper } from "@mantine/core";
+import { Group, Checkbox, Text, UnstyledButton, ActionIcon, Paper, Title, Container, Center } from "@mantine/core";
 import EditTodo from "./EditTodo";
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -155,6 +155,13 @@ export default function ListTodos({ todos, setTodos, sortFunc, filterFunc }) {
             </Group>
           </Paper>
         ))
+      }
+
+      {todos.length === 0 &&
+        <Center my="sm">
+          <Title order={2}>No Tasks</Title>
+
+        </Center>
       }
     </>
   )
