@@ -64,7 +64,7 @@ export default function Todos() {
         opened={todoModal}
         onClose={() => setTodoModal(false)}
         title="Add New Task"
-        size="md"
+        size="lg"
       >
         <AddTodo close={() => setTodoModal(false)} setTodos={setTodos} />
       </Modal>

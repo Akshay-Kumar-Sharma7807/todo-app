@@ -1,10 +1,13 @@
 import { Navbar, Text, Box, ThemeIcon, Group, UnstyledButton } from "@mantine/core";
 import { NavLinks, MainLink } from "./NavLinks";
 import NavBtn from "./NavBtn";
+import { useLocation } from "react-router-dom";
 
 import React from 'react'
 
 export default function Navigation({ opened }) {
+  const location = useLocation();
+  console.log(location)
 
   const share = (e) => {
     let shareData = {

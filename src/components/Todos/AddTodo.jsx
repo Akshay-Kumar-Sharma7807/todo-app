@@ -8,10 +8,16 @@ import { Calendar, TimeInput } from '@mantine/dates';
 
 import uuid from 'react-uuid';
 import { useEffect } from 'react';
+import { getLaterToday, getNextWeek, getTomorrow } from '../../utils';
 
 export default function AddTodo({ close, setTodos }) {
   const [dueDate, setDueDate] = useState(null);
-  const [reminder, setReminder] = useState(null);
+  const [reminder, setReminder] = useState({
+    date: null,
+    string: ""
+  });
+  const rtf = new Intl.RelativeTimeFormat('en', { style: 'narrow', numeric: 'auto' });
+  const dtf = new Intl.DateTimeFormat('en-US', { timeStyle: "short", dateStyle: "short" });
 
   useEffect(() => {
     console.log(dueDate);
@@ -44,6 +50,7 @@ export default function AddTodo({ close, setTodos }) {
 
   const addNewTask = (values) => {
     values.dueDate = dueDate;
+    values.reminder = reminder;
     if (user) {
 
 
@@ -132,28 +139,46 @@ export default function AddTodo({ close, setTodos }) {
             transitionDuration={100}
             transitionTimingFunction="ease"
             width={200}
+            withArrow
           // closeOnItemClick={false}
           >
-            <Menu.Target>
-
-              <Tooltip label="Remind Me" withArrow>
-                <ActionIcon color="blue" title="Remind Me"><i className="bi bi-bell" /></ActionIcon>
-              </Tooltip>
-            </Menu.Target>
+            <Tooltip label="Remind Me" withArrow>
+              <Group spacing={2}>
+                <Menu.Target>
+                  <ActionIcon color="blue" title="Remind Me"><i className="bi bi-bell" /></ActionIcon>
+                </Menu.Target>
+                {reminder.date &&
+                  <Badge>
+                    {/* {reminder.toString()} */}
+                    {/* {rtf.format(reminder.getDate() - (new Date()).getDate(), "day")} */}
+                    {reminder.string}
+                    {reminder.string.length < 1 && dtf.format(reminder.date)}
+                  </Badge>
+                }
+              </Group>
+            </Tooltip>
 
             <Menu.Dropdown>
               <Menu.Label position="center">Add Reminder</Menu.Label>
               <Divider />
-              <Menu.Item>Later Today</Menu.Item>
-              <Menu.Item>Tomorrow</Menu.Item>
-              <Menu.Item>Next Week</Menu.Item>
+              <Menu.Item onClick={() => setReminder(getLaterToday())}>Later Today</Menu.Item>
+              <Menu.Item onClick={() => setReminder(getTomorrow())}>Tomorrow</Menu.Item>
+              <Menu.Item onClick={() => setReminder(getNextWeek())}>Next Week</Menu.Item>
 
               <Menu.Label position="center">Custom</Menu.Label>
               <Divider my={4} />
               {/* <Menu.Item rightSection={<i className="bi bi-arrow-right" />}>Pick Date & Time</Menu.Item> */}
               {/* <Menu.Item> */}
-              <TimeInput format="12" defaultValue={new Date()} />
+              <TimeInput format="12" defaultValue={new Date()} onChange={(date) => setReminder({ date: date, string: "" })} />
               {/* </Menu.Item> */}
+
+              {reminder.date &&
+                <>
+                  <Divider my={4} />
+                  <Menu.Item color="red" onClick={() => setReminder({ date: null, string: "" })}>
+                    Remove Reminder
+                  </Menu.Item>
+                </>}
 
             </Menu.Dropdown>
 
@@ -163,7 +188,7 @@ export default function AddTodo({ close, setTodos }) {
             transitionDuration={100}
             transitionTimingFunction="ease"
             width={200}
-
+            withArrow
           >
             <Menu.Target><Tooltip label="Repeat" withArrow>
               <ActionIcon color="indigo" title="Repeat"><i className="bi bi-alarm" /></ActionIcon>

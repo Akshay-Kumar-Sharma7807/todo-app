@@ -143,19 +143,19 @@ export default function EditTodo({ editMenu, setEditMenu, todos, id, starTodo, c
         {/* <Paper></Paper> */}
         {/* <Paper></Paper> */}
       </Paper>
-      <Footer>
-        <Group p="sm" position="apart">
-          <ActionIcon
-            color="red"
-            variant="subtle"
-            onClick={() => deleteTodo(id)}
-          >
-            <i className={`bi bi-trash`} size={16} />
-            {todo.favourite}
-          </ActionIcon>
-          <Text variant='secondary'>Created Today</Text>
-        </Group>
-      </Footer>
+      {/* <Footer> */}
+      <Group p="sm" position="apart" mt="auto" sx={{ margin: "auto" }}>
+        <ActionIcon
+          color="red"
+          variant="subtle"
+          onClick={() => deleteTodo(id)}
+        >
+          <i className={`bi bi-trash`} size={16} />
+          {todo.favourite}
+        </ActionIcon>
+        <Text variant='secondary'>Created Today</Text>
+      </Group>
+      {/* </Footer> */}
     </Drawer >
   )
 

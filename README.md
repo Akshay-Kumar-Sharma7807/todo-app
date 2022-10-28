@@ -16,7 +16,8 @@ This will open the app on ```localhost:3000```
 - Toggle between Light Theme and Dark Theme
 - Installable PWA 
 - Works Offline 📴
-- Blazingly fast ⚡ (It was, due to new features it's a bit slower now.)
+- Blazingly fast ⚡
+- Synchronizes tasks to the server
 
 ## ScreenShots
 
