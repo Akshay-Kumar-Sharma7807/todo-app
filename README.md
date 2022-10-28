@@ -18,7 +18,19 @@ This will open the app on ```localhost:3000```
 - Works Offline 📴
 - Blazingly fast ⚡ (It was, due to new features it's a bit slower now.)
 
+## ScreenShots
 
+Light Mode
+![Light Mode](/screenshots/todo-light.png)
+
+Dark Mode
+![Dark Mode](/screenshots/todo-dark.png)
+
+Edit Todos
+![Edit Todos](/screenshots/todo-edit.png)
+
+Add New Todos
+![Add New Todos](/screenshots/todo-add.png)
 ## Technologies
 
 - React for Frontend
