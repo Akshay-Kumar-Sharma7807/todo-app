@@ -18,6 +18,7 @@ This will open the app on ```localhost:3000```
 - Works Offline 📴
 - Blazingly fast ⚡
 - Synchronizes tasks to the server
+- Sends notifications for Due Tasks
 
 ## ScreenShots
 
