@@ -41,10 +41,11 @@ function ReloadPrompt() {
                     }
                     icon={<i className="bi bi-arrow-clockwise"></i>}
                 >
+                    <Group>
+                        {needRefresh && <Button variant="outline" onClick={() => updateServiceWorker(true)}>Reload</Button>}
+                        <Button variant="outline" onClick={() => close()}>Close</Button>
+                    </Group>
 
-                    {needRefresh && <Button variant="outline" onClick={() => updateServiceWorker(true)}>Reload</Button>}
-
-                    <Button variant="outline" onClick={() => close()}>Close</Button>
                 </Alert>
             }
         </Box>

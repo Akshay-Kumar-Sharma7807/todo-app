@@ -1,4 +1,4 @@
-import { ActionIcon, Aside, Avatar, Box, Button, Container, Drawer, Group, Stack, Switch, Text, Title, Tooltip } from '@mantine/core'
+import { ActionIcon, Aside, Avatar, Box, Button, Container, Drawer, Group, Stack, Switch, Text, Title, Tooltip, UnstyledButton } from '@mantine/core'
 import React, { useState } from 'react'
 import { auth } from "../../firebase";
 import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signOut } from 'firebase/auth';
@@ -46,7 +46,10 @@ export default function Account() {
 
           <i className='bi bi-person-circle'></i>
         </ActionIcon> */}
-        <Avatar src={user?.photoURL} radius="xl" onClick={() => toggleAccount()}></Avatar>
+        <UnstyledButton>
+          <Avatar src={user?.photoURL} radius="xl" onClick={() => toggleAccount()}></Avatar>
+
+        </UnstyledButton>
       </Tooltip>
       <Drawer
         position="right"

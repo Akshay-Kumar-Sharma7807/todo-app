@@ -8,15 +8,15 @@ export default function About() {
   }
   return (
     <>
-      <Tooltip label="About" withArrow>
 
-        <MediaQuery smallerThan={390} styles={{ display: 'none' }}>
+      <MediaQuery smallerThan={390} styles={{ display: 'none' }}>
+        <Tooltip label="About" withArrow>
           <ActionIcon variant="default" onClick={() => toggleAbout()}>
             <i className='bi bi-info-circle'></i>
           </ActionIcon>
+        </Tooltip>
 
-        </MediaQuery>
-      </Tooltip>
+      </MediaQuery>
       <Drawer
         position="right"
         opened={open}
@@ -41,9 +41,9 @@ export default function About() {
           means it can be installed on your device. You can quickly access your
           tasks and filter or sort them if you want to.
         </Text>
-        <Title my="md" order={5}>About Me</Title>
-        <Group position="center">
-          <Avatar src="https://i.ibb.co/m6B7PSv/IMG-20200229-101104.jpg" radius={100} size={200} alt="Akshay Kumar Sharma" />
+        <Title my="md" order={5}>Contact Me</Title>
+        <Group>
+          <Avatar src="https://i.ibb.co/m6B7PSv/IMG-20200229-101104.jpg" radius="xl" size="lg" alt="Akshay Kumar Sharma" />
           <Title order={4}>Akshay Kumar Sharma</Title>
         </Group>
         <Text>Email: <Anchor href="mailto:sharmaakshaykumar7807@gmail.com">sharmaakshaykumar7807@gmail.com</Anchor></Text>

@@ -3,6 +3,8 @@ import ListTodos from "../ListTodos";
 
 export default function Planned({ todos, setTodos }) {
   return (
-    <ListTodos todos={todos} setTodos={setTodos} />
+    <ListTodos todos={todos} setTodos={setTodos} filterFunc={(todo) => {
+      return todo.dueDate
+    }} />
   )
 }

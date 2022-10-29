@@ -26,9 +26,12 @@ export default function Head({ opened, setOpened }) {
 
         <Title order={3}>Todo</Title>
         <Group ml="auto" m="md">
-          <ActionIcon onClick={() => spotlight.openSpotlight()} variant="default">
-            <i className='bi bi-search'></i>
-          </ActionIcon>
+          <Tooltip label="Search" withArrow>
+            <ActionIcon onClick={() => spotlight.openSpotlight()} variant="default">
+              <i className='bi bi-search'></i>
+            </ActionIcon>
+
+          </Tooltip>
           <ThemeToggle />
           <Settings />
           <About />
