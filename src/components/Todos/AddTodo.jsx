@@ -9,8 +9,10 @@ import { Calendar, TimeInput } from '@mantine/dates';
 import uuid from 'react-uuid';
 import { useEffect } from 'react';
 import { getLaterToday, getNextWeek, getTomorrow } from '../../utils';
+import { useLocation } from "react-router-dom";
 
 export default function AddTodo({ close, setTodos }) {
+  const location = useLocation();
   const [dueDate, setDueDate] = useState(null);
   const [reminder, setReminder] = useState({
     date: null,
@@ -24,6 +26,7 @@ export default function AddTodo({ close, setTodos }) {
   }, [dueDate])
   const [dueMenu, setDueMenu] = useState(false);
   const [user] = useAuthState(auth)
+  // console.log(location.pathname === "/tasks/my-day" ? true : false)
   const form = useForm({
     initialValues: {
       id: uuid(),
@@ -31,7 +34,7 @@ export default function AddTodo({ close, setTodos }) {
       completed: false,
       importance: 25,
       favourite: false,
-      myDay: false,
+      myDay: location.pathname === "/tasks/my-day" ? true : false,
       categories: [],
       created: serverTimestamp(),
       notified: false,
@@ -51,6 +54,7 @@ export default function AddTodo({ close, setTodos }) {
   const addNewTask = (values) => {
     values.dueDate = dueDate;
     values.reminder = reminder;
+    console.log(values.myDay);
     if (user) {
 
 
@@ -208,7 +212,7 @@ export default function AddTodo({ close, setTodos }) {
           </Menu>
 
         </Group>
-        <Checkbox label="Add to My Day" mt="sm" {...form.getInputProps('myDay')} />
+        <Checkbox label="Add to My Day" mt="sm" {...form.getInputProps('myDay', { type: 'checkbox' })} />
         <Group position="right" mt="md">
           <Button type="submit">Add</Button>
         </Group>
