@@ -1,13 +1,19 @@
 import { ActionIcon, Aside, Container, Divider, Drawer, Group, Stack, Switch, Text, Title, Tooltip } from '@mantine/core'
 import React, { useState } from 'react'
+import { db, auth } from "../../firebase"
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect } from 'react';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export default function Settings() {
+  const [user] = useAuthState(auth);
   const [open, setOpen] = useState();
 
   // Settings state
   const [completionSound, setCompletionSound] = useState(true);
 
   // Smart Lists State
+  const [myDay, setMyDay] = useState(true);
   const [important, setImportant] = useState(true);
   const [planned, setPlanned] = useState(true);
   const [all, setAll] = useState(true);
@@ -20,6 +26,77 @@ export default function Settings() {
   const toggleSettings = () => {
     setOpen((o) => !o)
   }
+
+  // On toggle of settings sidebar sync the settings.
+  useEffect(() => {
+    // read settings
+    if (user && open) {
+      getDoc(doc(db, "Users", user.uid))
+        .then((res) => {
+          let settings = res.data().settings;
+          console.log(settings)
+          for (let setting in settings) {
+            setting = setting.trim();
+            switch (setting) {
+              case "completionSound":
+                setCompletionSound(settings[setting])
+                break;
+              case "important":
+                setImportant(settings[setting])
+                break;
+              case "planned":
+                setPlanned(settings[setting])
+                break;
+              case "all":
+                setAll(settings[setting])
+                break;
+              case "completed":
+                setCompleted(settings[setting])
+                break;
+              case "assigned":
+                setAssigned(settings[setting])
+                break;
+              case "email":
+                setEmail(settings[setting])
+                break;
+              case "pushNotifications":
+                setPushNotifications(settings[setting])
+                break;
+              case "myDay":
+                setMyDay(settings[setting])
+                break;
+              default:
+                console.log("unknown setting: ", setting);
+                break;
+            }
+
+          }
+        })
+
+    }
+
+    // save changed settings.
+    if (user && open === false) {
+      let data = {
+        completionSound,
+        important,
+        planned,
+        all,
+        completed,
+        assigned,
+        email,
+        pushNotifications,
+        myDay
+      }
+      setDoc(doc(db, "Users", user.uid), {
+        settings: data
+      }).then(() => {
+        // Settings updated on the server
+        // console.log("updated settings ")
+      })
+    }
+  }, [open])
+
   return (
     <>
       <Tooltip label="Settings" withArrow>
@@ -50,6 +127,7 @@ export default function Settings() {
         </Stack>
         <Title order={4} my="sm">Smart Lists</Title>
         <Stack>
+          <Switch size="md" checked={myDay} onChange={(e) => setMyDay(e.target.checked)} label="My Day" name="myDay"></Switch>
           <Switch size="md" checked={important} onChange={(e) => setImportant(e.target.checked)} label="Important" name="notification"></Switch>
           <Switch size="md" checked={planned} onChange={(e) => setPlanned(e.target.checked)} label="Planned" name="notification"></Switch>
           <Switch size="md" checked={all} onChange={(e) => setAll(e.target.checked)} label="All" name="notification"></Switch>

@@ -1,8 +1,8 @@
-console.log('im worker')
+// console.log('im worker')
 
 
 onmessage = (e) => {
-    console.log(e.data)
+    // console.log(e.data)
 
     const todos = e.data;
 
